@@ -29,9 +29,11 @@ interface VercelInviteUserEmailProps {
   inviteFromLocation?: string;
 }
 
+import logo from '../static/vercel-logo.png'
+
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "";
+  : "https://raw.githubusercontent.com/ch-dg/react-email/main/react-email-starter/";
 
 export const VercelInviteUserEmail = ({
   username,

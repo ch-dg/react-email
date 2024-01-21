@@ -15,7 +15,7 @@ import * as React from "react";
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "";
+  : "https://raw.githubusercontent.com/ch-dg/react-email/main/react-email-starter/";
 
 export const StripeWelcomeEmail = () => (
   <Html>
