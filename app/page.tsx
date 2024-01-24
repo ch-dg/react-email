@@ -15,11 +15,15 @@ return htmlMail
 
 const [email, setEmail] = useState('')
 const [surname, setSurname] = useState('')
-
+const [formError, setFormError] = useState('')
 
 const onSubmit = (e: React.FormEvent) => {
    e.preventDefault()
    console.log(surname);
+   if (!surname) {
+     setFormError('Please enter your surname')
+     return
+   }
    const htmlMail = render(DgInteraction())
 }
 
@@ -34,6 +38,8 @@ const onSubmit = (e: React.FormEvent) => {
         value={surname}
         onChange={(e) => setSurname(e.target.value)}
         className='w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100' />
+      
+      {formError && formError.includes('surname') && <p className='text-red-500'>{formError}</p>}
       <button 
       type='submit'
       className='mt-8 flex items-center justify-center rounded-lg py-3 px-8 text-xl font-medium leading-6 bg-primary  text-white hover:border-transparent hover:border-primary-900 hover:bg-primary-900 hover:text-white focus:border-primary-400 focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-primary-400 disabled:cursor-not-allowed disabled:bg-neutral-400' 
