@@ -30,7 +30,7 @@ const onSubmit = (e: React.FormEvent) => {
       <form onSubmit={onSubmit} className='flex flex-col items-center justify-center'>
         <input 
         type='text'
-        placeholder='Surnames'
+        placeholder='Surnamess'
         value={surname}
         onChange={(e) => setSurname(e.target.value)}
         className='w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100' />
