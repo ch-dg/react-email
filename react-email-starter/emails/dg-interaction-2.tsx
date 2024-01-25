@@ -17,11 +17,42 @@ export interface DgInteraction2Props {
   brand: string;
   appliance: string;
   periodOfCover: number;
+  client: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "https://raw.githubusercontent.com/ch-dg/react-email/main/react-email-starter/";
+  : "https://raw.githubusercontent.com/ch-dg/react-email/chris-wip/react-email-starter/";
+
+const imgUrl = (client: string) => {
+  if (client === "Hoover") {
+    return `Hooverlogo.png`;
+  }
+  if (client === "AO") {
+    return `AOlogo.png`;
+  }
+  if (client === "Sky") {
+    return `Skylogo.png`;
+  }
+  if (client === "DG") {
+    return `DGlogo.png`;
+  }
+};
+
+const clientName = (client: string) => {
+  if (client === "Hoover") {
+    return "Hoover";
+  }
+  if (client === "AO") {
+    return "AO";
+  }
+  if (client === "Sky") {
+    return "Sky";
+  }
+  if (client === "DG") {
+    return "Domestic & General";
+  }
+};
 
 const DgInteraction2 = ({
   title = "Mr",
@@ -29,6 +60,7 @@ const DgInteraction2 = ({
   brand = "Bosch",
   appliance = "Washing Machine",
   periodOfCover = 12,
+  client = "Hoover",
 }: DgInteraction2Props) => {
   return (
     <Html>
@@ -38,7 +70,7 @@ const DgInteraction2 = ({
           <Container className="lg:mt-16 bg-white borderborder-solid border-gray-200 mx-auto p-5 max-w-[465px] lg:max-w-[640px]">
             <Section>
               <Img
-                src={`${baseUrl}/static/DGlogo.png`}
+                src={`${baseUrl}/static/${imgUrl(client)}`}
                 width="25%"
                 height="25%"
                 alt="Domestic and General Logos"
@@ -53,16 +85,16 @@ const DgInteraction2 = ({
               <Text className="text-black text-lg font-bold">
                 Dear {title} {surname},{" "}
               </Text>
-              <Text className="text-black">Welcome to Domestic & General.</Text>
+              <Text className="text-black">
+                Welcome to {clientName(client)}.
+              </Text>
               <Text className="text-black">
                 Good news! Your {brand} {appliance} is now protected for{" "}
                 {periodOfCover} months
               </Text>
 
               <Text className="text-black">Kind regards,</Text>
-              <Text className="text-black">
-                The Domestic &amp; General Team
-              </Text>
+              <Text className="text-black">{clientName(client)} Team</Text>
             </Section>
           </Container>
           <Container className="max-w-[465px] lg:max-w-[640px] p-5">

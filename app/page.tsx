@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DgInteraction from "@/react-email-starter/emails/dg-interaction";
+
 import DgInteraction2 from "@/react-email-starter/emails/dg-interaction-2";
 
 import { render } from "@react-email/render";
@@ -35,6 +36,7 @@ export default function Home() {
 
   const [email, setEmail] = useState("");
   const [surname, setSurname] = useState("");
+  const [client, setClient] = useState("");
   const [formError, setFormError] = useState("");
 
   const onSubmit = (e: React.FormEvent) => {
@@ -43,6 +45,14 @@ export default function Home() {
     //  const FormFields = [
     //   {title: console.log(title), surnamestr: console.log(surname), brandstr: console.log(brand), appliancestr: console.log(appliance), periodofcoverint: console.log(periodofcover)}
     //  ]
+    if (!client) {
+      setFormError("Please enter a client");
+      return;
+    }
+    if (!title) {
+      setFormError("Please enter your title");
+      return;
+    }
     if (!surname) {
       setFormError("Please enter your surname");
       return;
@@ -69,90 +79,145 @@ export default function Home() {
         brand: brand,
         appliance: appliance,
         periodOfCover: Number(periodofcover),
+        client: client,
       })
     );
 
     sendPayLoad(htmlMail);
   };
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
-    <main>
-      <div className="flex flex-col items-center justify-center mt-16">
-        <form
-          onSubmit={onSubmit}
-          className="flex flex-col items-center justify-center"
-        >
-          <select
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
-          >
-            <option value="">Title</option>
-            <option value={"Mr"}>Mr</option>
-            <option value={"Mrs"}>Mrs</option>
-            <option value={"Ms"}>Ms</option>
-            <option value={"Miss"}>Miss</option>
-          </select>
-          {formError && formError.includes("title") && (
-            <p className="text-red-500">{formError}</p>
-          )}
+    <>
+      {isClient ? (
+        <main>
+          <div className="flex absolute -top-[4rem] flex-col items-center justify-center mt-16">
+            <h1 className="text-xl font-bold">Customer Interaction Email</h1>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="absolute top-0 left-0  col-span-1">
+              <div className="flex flex-col items-center justify-center mt-4">
+                <form
+                  onSubmit={onSubmit}
+                  className="flex flex-col items-center justify-center"
+                >
+                  <div className="w-full mt-4">
+                    <select
+                      value={client}
+                      onChange={(e) => setClient(e.target.value)}
+                      className="w-full mt-4 appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
+                    >
+                      <option value="">Client</option>
+                      <option value={"DG"}>D&G</option>
+                      <option value={"Hoover"}>Hoover</option>
+                      <option value={"AO"}>AO</option>
+                      <option value={"Sky"}>Sky</option>
+                    </select>
+                    {formError && formError.includes("client") && (
+                      <p className="text-red-500">{formError}</p>
+                    )}
+                  </div>
+                  <div className="w-full mt-4">
+                    <select
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      className="w-full mt-4 appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
+                    >
+                      <option value="">Title</option>
+                      <option value={"Mr"}>Mr</option>
+                      <option value={"Mrs"}>Mrs</option>
+                      <option value={"Ms"}>Ms</option>
+                      <option value={"Miss"}>Miss</option>
+                    </select>
+                    {formError && formError.includes("title") && (
+                      <p className="text-red-500">{formError}</p>
+                    )}
+                  </div>
+                  <div className="w-full mt-4">
+                    <input
+                      type="text"
+                      placeholder="Surname"
+                      value={surname}
+                      onChange={(e) => setSurname(e.target.value)}
+                      className="w-full mt-4 appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
+                    />
 
-          <input
-            type="text"
-            placeholder="Surname"
-            value={surname}
-            onChange={(e) => setSurname(e.target.value)}
-            className="w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
-          />
+                    {formError && formError.includes("surname") && (
+                      <p className="text-red-500">{formError}</p>
+                    )}
+                  </div>
 
-          {formError && formError.includes("surname") && (
-            <p className="text-red-500">{formError}</p>
-          )}
+                  <div className="w-full mt-4">
+                    <input
+                      type="text"
+                      placeholder="Brand"
+                      value={brand}
+                      onChange={(e) => setBrand(e.target.value)}
+                      className="w-full mt-4 appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
+                    />
 
-          <input
-            type="text"
-            placeholder="Brand"
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-            className="w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
-          />
+                    {formError && formError.includes("brand") && (
+                      <p className="text-red-500">{formError}</p>
+                    )}
+                  </div>
+                  <div className="w-full mt-4">
+                    <select
+                      value={appliance}
+                      onChange={(e) => setAppliance(e.target.value)}
+                      className="w-full mt-4 appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
+                    >
+                      <option value="">Appliance Type</option>
+                      <option value={"Washing Machine"}>Washing Machine</option>
+                      <option value={"Fridge"}>Fridge</option>
+                      <option value={"Freezer"}>Freezer</option>
+                      <option value={"Dryer"}>Dryer</option>
+                    </select>
+                  </div>
+                  <div className="w-full mt-4">
+                    <input
+                      type="number"
+                      placeholder="Period of Cover (Months)"
+                      value={periodofcover}
+                      onChange={(e) => setPeriodOfCover(e.target.value)}
+                      className="w-full mt-4 appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
+                    />
 
-          {formError && formError.includes("brand") && (
-            <p className="text-red-500">{formError}</p>
-          )}
+                    {formError && formError.includes("periodofcover") && (
+                      <p className="text-red-500">{formError}</p>
+                    )}
+                  </div>
 
-          <select
-            value={appliance}
-            onChange={(e) => setAppliance(e.target.value)}
-            className="w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
-          >
-            <option value="">Appliance Type</option>
-            <option value={"Washing Machine"}>Washing Machine</option>
-            <option value={"Fridge"}>Fridge</option>
-            <option value={"Freezer"}>Freezer</option>
-            <option value={"Dryer"}>Dryer</option>
-          </select>
-
-          <input
-            type="number"
-            placeholder="Period of Cover (Months)"
-            value={periodofcover}
-            onChange={(e) => setPeriodOfCover(e.target.value)}
-            className="w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100"
-          />
-
-          {formError && formError.includes("periodofcover") && (
-            <p className="text-red-500">{formError}</p>
-          )}
-
-          <button
-            type="submit"
-            className="mt-8 flex items-center justify-center rounded-lg py-3 px-8 text-xl font-medium leading-6 bg-primary  text-white hover:border-transparent hover:border-primary-900 hover:bg-primary-900 hover:text-white focus:border-primary-400 focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-primary-400 disabled:cursor-not-allowed disabled:bg-neutral-400"
-          >
-            Send email
-          </button>
-        </form>
-      </div>
-    </main>
+                  <div className="w-full mt-4">
+                    <button
+                      type="submit"
+                      className="mt-4 flex items-center justify-center rounded-lg py-3 px-8 text-xl font-medium leading-6 bg-primary  text-white hover:border-transparent hover:border-primary-900 hover:bg-primary-900 hover:text-white focus:border-primary-400 focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-primary-400 disabled:cursor-not-allowed disabled:bg-neutral-400"
+                    >
+                      Send email
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div className=" col-span-1 absolute">
+              <DgInteraction2
+                title={title}
+                surname={surname}
+                brand={brand}
+                appliance={appliance}
+                periodOfCover={Number(periodofcover)}
+                client={client}
+              />
+            </div>
+          </div>
+        </main>
+      ) : (
+        "loading"
+      )}
+    </>
   );
 }
