@@ -14,32 +14,100 @@ return htmlMail
 }
 
 const [email, setEmail] = useState('')
+const [title, setTitle] = useState('')
+console.log(title)
 const [surname, setSurname] = useState('')
+const [brand, setBrand] = useState('')
+const [appliance, setAppliance] = useState('')
+const [periodofcover, setPeriodOfCover] = useState('')
+
 const [formError, setFormError] = useState('')
+
 
 const onSubmit = (e: React.FormEvent) => {
    e.preventDefault()
    console.log(surname);
+  //  const FormFields = [
+  //   {title: console.log(title), surnamestr: console.log(surname), brandstr: console.log(brand), appliancestr: console.log(appliance), periodofcoverint: console.log(periodofcover)}
+  //  ]
    if (!surname) {
      setFormError('Please enter your surname')
      return
    }
+   if (!brand) {
+     setFormError('Please enter the brand of your appliance')
+     return
+   }
+   if (!appliance) {
+    setFormError('Please enter the type of appliance')
+    return
+  }
+    if (!periodofcover) {
+      setFormError('Please enter your period of cover')
+    }
    const htmlMail = render(DgInteraction())
 }
+
 
 // const send = sendMail(renderEmail)
   return (
     <main>
       <div className='flex flex-col items-center justify-center mt-16'>
       <form onSubmit={onSubmit} className='flex flex-col items-center justify-center'>
+      <select 
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className='w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100'
+      
+      >
+        <option value="">Title</option>
+        <option value={"Mr"}>Mr</option>
+        <option value={"Mrs"}>Mrs</option>
+        <option value={"Ms"}>Ms</option>
+        <option value={"Miss"}>Miss</option>
+      </select>
+      {formError && formError.includes('title') && <p className='text-red-500'>{formError}</p>}
+
         <input 
         type='text'
         placeholder='Surname'
         value={surname}
         onChange={(e) => setSurname(e.target.value)}
         className='w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100' />
-      
+
       {formError && formError.includes('surname') && <p className='text-red-500'>{formError}</p>}
+
+        <input
+        type = 'text'
+        placeholder = 'Brand'
+        value={brand}
+        onChange={(e) => setBrand(e.target.value)}
+        className='w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100' />
+
+      {formError && formError.includes('brand') && <p className='text-red-500'>{formError}</p>}
+
+        <select
+        value={appliance}
+        onChange={(e) => setTitle(e.target.value)}
+        className='w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100'
+      
+      >
+        <option value="">Appliance Type</option>
+        <option value={"Washing Machine"}>Washing Machine</option>
+        <option value={"Fridge"}>Fridge</option>
+        <option value={"Freezer"}>Freezer</option>
+        <option value={"Dryer"}>Dryer</option>
+      </select>
+
+        <input
+        type = 'int'
+        placeholder = 'Period of Cover (Years)'
+        value={periodofcover}
+        onChange={(e) => setBrand(e.target.value)}
+        className='w-full appearance-none rounded-[3px] border bg-white py-3 px-6 pl-6  outline-none focus:border-[#1155CB] focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-[#1155CB] file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-primary-900 hover:file:bg-violet-100' />
+
+      {formError && formError.includes('periodofcover') && <p className='text-red-500'>{formError}</p>}
+
       <button 
       type='submit'
       className='mt-8 flex items-center justify-center rounded-lg py-3 px-8 text-xl font-medium leading-6 bg-primary  text-white hover:border-transparent hover:border-primary-900 hover:bg-primary-900 hover:text-white focus:border-primary-400 focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-primary-400 disabled:cursor-not-allowed disabled:bg-neutral-400' 
