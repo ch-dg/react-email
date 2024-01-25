@@ -34,14 +34,17 @@ const onSubmit = (e: React.FormEvent) => {
      setFormError('Please enter your surname')
      return
    }
+   console.log(brand);
    if (!brand) {
      setFormError('Please enter the brand of your appliance')
      return
    }
+   console.log(appliance);
    if (!appliance) {
     setFormError('Please enter the type of appliance')
     return
   }
+  console.log(appliance)
     if (!periodofcover) {
       setFormError('Please enter your period of cover')
     }
