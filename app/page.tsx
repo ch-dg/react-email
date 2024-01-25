@@ -1,10 +1,11 @@
-'use client'
+"use client";
 
 import { useState } from 'react'
 import DgInteraction from '@/react-email-starter/emails/dg-interaction'
 import {render} from '@react-email/render'
 
-import {sendMail} from '@/app/mailMethods/sendMail'
+import { sendMail } from "@/app/mailMethods/sendMail";
+
 
 export default function Home() {
 const renderEmail = () => {
